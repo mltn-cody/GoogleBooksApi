@@ -2,7 +2,7 @@
 
 <p>This component demonstrates fetching data from the google books api.</p>
 
-<div *ngIf="!books">
+<div>
   <input id="search_field" type="text" placeholder="Search for book title"/>
   <button (click)="search()">search</button>
 </div>
@@ -21,7 +21,7 @@
       <td>{{ book.title }}</td>
       <td>{{ book.authors }}</td>
       <td>{{ book.publisher}}</td>
-      <td><a href="{{ book.infoLink }}"><img src="{{ book.image }}" /></a></td>
+      <td><a href="{{ book.infoLink }}" target="_blank"><img src="{{ book.image }}" /></a></td>
     </tr>
   </tbody>
 </table>
