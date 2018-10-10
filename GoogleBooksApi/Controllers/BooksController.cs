@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using GoogleBooksApi.ClientApp.Models;
+using GoogleBooksApi.ClientApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GoogleBooksApi.Controllers

@@ -1,12 +1,10 @@
-using Google.Apis.Books.v1;
-
-namespace GoogleBooksApi.Controllers
+namespace GoogleBooksApi.ClientApp.Services
 {
     /// <summary>
     /// Wrapper class used for testing 
     /// </summary>
     public interface IBookService
     {
-        VolumesResource Volumes { get; }
+      IVolumesResource Volumes { get; }
     }
 }

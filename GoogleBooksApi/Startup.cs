@@ -1,3 +1,4 @@
+using GoogleBooksApi.ClientApp.Services;
 using GoogleBooksApi.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +31,8 @@ namespace GoogleBooksApi
 
             services.AddTransient<IBookService>(s => new GoogleApiBookService(Configuration["ApiKey"]));
             services.AddTransient<IBookApi, BookApi>();
+            services.AddTransient<IVolumesResource, VolumesResourceStub>();
+            services.AddTransient<IListRequest, ListRequestStub>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

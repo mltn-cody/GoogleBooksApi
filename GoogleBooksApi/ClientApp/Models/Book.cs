@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace GoogleBooksApi.Controllers
+namespace GoogleBooksApi.ClientApp.Models
 {
     /// <summary>
     /// Books Model

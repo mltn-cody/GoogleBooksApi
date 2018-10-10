@@ -1,16 +1,17 @@
 ﻿using System;
 using AutoMapper;
 using Google.Apis.Books.v1.Data;
+using GoogleBooksApi.ClientApp.Models;
 using GoogleBooksApi.Controllers;
 
 namespace GoogleBooksApi.Test.Mappings
 {
-    public class MappingConfiguration : Profile
+    public class MappingUnitTestConfiguration : Profile
     {
-        public MappingConfiguration()
+        public MappingUnitTestConfiguration()
         {
             CreateMap<Book, Volume.VolumeInfoData>()
-                .ForMember(dest => dest.ImageLinks.Thumbnail,
+                .ForPath(dest => dest.ImageLinks.Thumbnail,
                     opt => opt.MapFrom(src => src.Image))
                 .ReverseMap()
                 .ForMember(dest => dest.Image,

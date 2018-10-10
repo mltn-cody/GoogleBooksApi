@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using GoogleBooksApi.ClientApp.Models;
 
-namespace GoogleBooksApi.Controllers
+namespace GoogleBooksApi.ClientApp.Services
 {
     /// <summary>
     /// BookApi used to stub Search Method
