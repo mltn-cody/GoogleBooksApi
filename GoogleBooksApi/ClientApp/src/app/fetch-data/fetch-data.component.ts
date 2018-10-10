@@ -6,18 +6,30 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './fetch-data.component.html'
 })
 export class FetchDataComponent {
-  public forecasts: WeatherForecast[];
+  public books: IBook[];
+  private http: HttpClient;
+  private readonly baseUrl: string;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<WeatherForecast[]>(baseUrl + 'api/SampleData/WeatherForecasts').subscribe(result => {
-      this.forecasts = result;
+    this.http = http;
+    this.baseUrl = baseUrl;
+  }
+
+  public search() {
+    let querystring = encodeURIComponent((document.getElementById('search_field') as HTMLInputElement).value);
+    this.http.get<IBook[]>(this.baseUrl + 'api/Books/Search?query=' + querystring).subscribe(result => {
+      this.books = result;
     }, error => console.error(error));
   }
 }
 
-interface WeatherForecast {
-  dateFormatted: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
+interface IBook {
+  id: string,
+  title: string,
+  authors: string[],
+  infoLink: string,
+  description: string,
+  publisher: string,
+  pageCount: number,
+  image: string;
 }

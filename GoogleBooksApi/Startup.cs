@@ -1,3 +1,4 @@
+using GoogleBooksApi.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,9 @@ namespace GoogleBooksApi
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddTransient<IBookService>(s => new GoogleApiBookService(Configuration["ApiKey"]));
+            services.AddTransient<IBookApi, BookApi>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,6 +66,8 @@ namespace GoogleBooksApi
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
+            
         }
     }
 }
