@@ -17,8 +17,10 @@ namespace GoogleBooksApi.Controllers
         [HttpGet("[action]")]
         public async Task<IEnumerable<Book>> Search(string query)
         {
-            var result = await _bookApi.Search(query, 0, 10);
+            if (string.IsNullOrEmpty(query)) return null;
+            var result = await _bookApi.Search(query);
             return result.Item2;
+
         }
     }
 }

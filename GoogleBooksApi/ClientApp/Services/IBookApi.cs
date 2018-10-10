@@ -16,6 +16,6 @@ namespace GoogleBooksApi.Controllers
         /// <param name="offset">Todo: Use for pagination </param>
         /// <param name="count">the number of records to return</param>
         /// <returns></returns>
-        Task<Tuple<int?, List<Book>>> Search(string query, int offset, int count);
+        Task<Tuple<int?, List<Book>>> Search(string query, int offset = 0, int count = 10);
     }
 }
