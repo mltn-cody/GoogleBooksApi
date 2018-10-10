@@ -3,6 +3,9 @@ using Google.Apis.Services;
 
 namespace GoogleBooksApi.Controllers
 {
+    /// <summary>
+    /// Wrapper Class on google BooksService to facilitate testing. 
+    /// </summary>
     public class GoogleApiBookService : IBookService
     {
         private readonly BooksService _booksService;

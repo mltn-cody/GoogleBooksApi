@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace GoogleBooksApi.Controllers
 {
+    /// <summary>
+    /// Books Model
+    /// </summary>
     public class Book
     {
         public string Id { get; set; }

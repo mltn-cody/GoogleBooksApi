@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace GoogleBooksApi.Controllers
 {
+    /// <summary>
+    /// Wrapper on Google Books Api
+    /// </summary>
     public class BookApi : IBookApi
     {
         private readonly IBookService _booksService;
@@ -14,6 +17,13 @@ namespace GoogleBooksApi.Controllers
             _booksService = bookClientService;
         }
 
+        /// <summary>
+        /// Search Google Books API
+        /// </summary>
+        /// <param name="query">Query string</param>
+        /// <param name="offset">Todo: Use for pagnation </param>
+        /// <param name="count">the number of records to return</param>
+        /// <returns></returns>
         public async Task<Tuple<int?, List<Book>>> Search(string query, int offset, int count)
         {
             return await Task.Run(() =>

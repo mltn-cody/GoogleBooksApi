@@ -4,6 +4,7 @@ using System.Linq;
 using AutoMapper;
 using Google.Apis.Books.v1;
 using Google.Apis.Books.v1.Data;
+using Google.Apis.Requests;
 using Google.Apis.Services;
 using GoogleBooksApi.Controllers;
 using NSubstitute;
@@ -45,7 +46,7 @@ namespace GoogleBooksApi.Test
     {
         private readonly IBookApi _bookApi;
         private IBookService _bookService;
-        private VolumesResource.ListRequest _listRequest;
+        private IClientServiceRequest<Volumes> _listRequest;
         private readonly BooksController _booksController;
         private static readonly List<Book> Books = new List<Book>()
         {
@@ -57,14 +58,14 @@ namespace GoogleBooksApi.Test
         private readonly Tuple<int?, List<Book>> _bookList = new Tuple<int?, List<Book>>(3, Books);
         public BookApiTests()
         {
-
+            var clientService = Substitute.For<IClientService>();
+            var stubVolumesResource = Substitute.For<VolumesResource>(clientService);
+            _listRequest = Substitute.For<IClientServiceRequest<Volumes>>();
+            stubVolumesResource.List(Arg.Any<string>()).Returns(_listRequest);
             _bookService = Substitute.For<IBookService>();
             _bookApi = new BookApi(_bookService);
             _bookService.Volumes
-                .Returns(new VolumesResource(Substitute.For<IClientService>()));
-            _listRequest = new VolumesResource.ListRequest(Substitute.For<IClientService>(), "");
-            _bookService.Volumes.List("")
-                .Returns(_listRequest);
+                .Returns(stubVolumesResource);
             _listRequest.Execute().Returns(new Volumes()
             {
                 Items = new List<Volume>()
