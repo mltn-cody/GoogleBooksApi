@@ -15,12 +15,15 @@ namespace GoogleBooksApi
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
             var config = new ConfigurationBuilder()
+                .AddCommandLine(args)
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("config.json", optional: true, reloadOnChange: true)
                 .Build();
 
             return WebHost.CreateDefaultBuilder(args)
                 .UseConfiguration(config)
+                .UseKestrel()
+                .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseStartup<Startup>();
         }
 
