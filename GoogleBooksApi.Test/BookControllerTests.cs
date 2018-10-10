@@ -17,6 +17,7 @@ namespace GoogleBooksApi.Test
     public class BookControllerTests
     {
         private readonly BooksController _booksController;
+        private readonly IBookApi _bookapi; 
         private static readonly List<Book> Books = new List<Book>()
         {
             new Book() {Title = "Effective C#", Subtitle = "50 Specific Ways to Improve Your C# Second Edition", PageCount = 328, Id = "98970", Image = ""},
@@ -29,15 +30,16 @@ namespace GoogleBooksApi.Test
 
         public BookControllerTests()
         {
-            var bookApi = Substitute.For<IBookApi>();
-            bookApi.Search(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<int>()).ReturnsForAnyArgs(_bookList);
-            _booksController = new BooksController(bookApi);
+            _bookapi = Substitute.For<IBookApi>();
+            _bookapi.Search(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<int>()).ReturnsForAnyArgs(_bookList);
+            _booksController = new BooksController(_bookapi);
         }
 
         [Fact]
         public async void GetBooksControllerTest()
         {
             var result = await _booksController.Search("C#");
+            await _bookapi.Received().Search(Arg.Any<string>());
             Assert.Equal(3, result.Count());
         }
 
