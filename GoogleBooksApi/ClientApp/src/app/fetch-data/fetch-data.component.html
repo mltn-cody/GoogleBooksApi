@@ -21,7 +21,7 @@
       <td>{{ book.title }}</td>
       <td>{{ book.authors }}</td>
       <td>{{ book.publisher}}</td>
-      <td><a href="{{ book.infoLink }}" target="_blank"><img src="{{ book.image }}" /></a></td>
+      <td><a href="{{ book.infoLink }}" target="_blank"><img src="{{ book.image ? book.image : './no-image.png'}}" /></a></td>
     </tr>
   </tbody>
 </table>
