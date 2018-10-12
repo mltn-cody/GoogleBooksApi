@@ -3,7 +3,7 @@
 <p>This component demonstrates fetching data from the google books api.</p>
 
 <div>
-  <input id="search_field" type="text" placeholder="Search for book title" (keypress)="($event.charCode==13) ? search() : return"/>
+  <input id="search_field" type="text" placeholder="Search for book title" (keypress)="eventHandler($event.charCode)"/>
   <button (click)="search()">search</button>
 </div>
 

@@ -21,6 +21,12 @@ export class FetchDataComponent {
       this.books = result;
     }, error => console.error(error));
   }
+
+  public eventHandler(keycode: number) {
+    if (keycode === 13)
+      this.search();
+    return;
+  }
 }
 
 interface IBook {
