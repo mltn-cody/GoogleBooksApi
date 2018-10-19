@@ -7,8 +7,8 @@
   <button (click)="search()">search</button>
 </div>
 
-<div *ngIf="error">
-  <p>Search Failed.</p>
+<div *ngIf="errorMsg">
+  <p>{{errorMsg}}</p>
 </div>
 
   <table class='table' *ngIf="books;else noBooksTemplate">

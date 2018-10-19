@@ -4,6 +4,7 @@ using AutoMapper;
 using Google.Apis.Books.v1.Data;
 using GoogleBooksApi.ClientApp.Models;
 using GoogleBooksApi.ClientApp.Services;
+using GoogleBooksApi.Controllers;
 using GoogleBooksApi.Test.Mappings;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
@@ -16,6 +17,7 @@ namespace GoogleBooksApi.Test
         private readonly IBookApi _bookApi;
         private readonly IBookService _bookService;
         private readonly IListRequest _listRequest;
+        private readonly BooksController _booksController;
 
         private static readonly List<Book> Books = new List<Book>()
         {
@@ -45,6 +47,8 @@ namespace GoogleBooksApi.Test
                     new Volume() {Id = Books[2].Id, VolumeInfo = Mapper.Map<Volume.VolumeInfoData>(Books[2])},
                 }
             });
+
+            _booksController = new BooksController(_bookApi);
         }
 
         [Fact]
@@ -58,10 +62,12 @@ namespace GoogleBooksApi.Test
         }
 
         [Fact]
-        public void BookService_ThowException()
+        public async System.Threading.Tasks.Task BookService_ThowException()
         {
-            _bookService.Volumes.Throws(new Exception("Something broke."));
-
+            var msg = "Custom Internal Server Error";
+            _bookService.Volumes.Throws(new Exception(msg));
+            var exception = await Assert.ThrowsAsync<FriendlyUiException>(() => ( _booksController.Search("C#")));
+            Assert.Equal("Search Failed!", exception.Message);
         }
 
     }
