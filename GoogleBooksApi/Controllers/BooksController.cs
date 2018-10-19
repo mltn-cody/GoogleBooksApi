@@ -20,9 +20,28 @@ namespace GoogleBooksApi.Controllers
         [HttpGet("[action]")]
         public async Task<IEnumerable<Book>> Search(string query)
         {
-            if (string.IsNullOrEmpty(query)) return null;
-            var result = await _bookApi.Search(query);
-            return result.Item2;
+            try
+            {
+                if (string.IsNullOrEmpty(query)) return null;
+                var result = await _bookApi.Search(query);
+                return result.Item2;
+            }
+            catch (Exception ex)
+            {
+                // do some stuff to track the message in ELK or some other logging system..
+                throw new FriendlyUiException("Search Failed!");
+            }
+        }
+
+
+    }
+
+    public class FriendlyUiException : Exception
+    {
+        public FriendlyUiException(string message) 
+            : base(message)
+        {
+            
         }
     }
 }

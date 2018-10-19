@@ -38,6 +38,12 @@ namespace GoogleBooksApi.Test
             Assert.Equal(3, result.Count());
         }
 
+        [Fact]
+        public async void BooksSearch_EmptyQueryString() {
+            var result = await _booksController.Search("");
+            await _bookapi.Received(0).Search(Arg.Any<string>());
+            Assert.Null(result);
+        }
 
     }
 }

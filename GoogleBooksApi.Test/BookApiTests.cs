@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AutoMapper;
 using Google.Apis.Books.v1.Data;
 using GoogleBooksApi.ClientApp.Models;
 using GoogleBooksApi.ClientApp.Services;
 using GoogleBooksApi.Test.Mappings;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using Xunit;
 
 namespace GoogleBooksApi.Test
@@ -54,5 +56,13 @@ namespace GoogleBooksApi.Test
             _listRequest.Received(1).Execute();
             Assert.Equal(Books[0].Authors, result.Item2[0].Authors);
         }
+
+        [Fact]
+        public void BookService_ThowException()
+        {
+            _bookService.Volumes.Throws(new Exception("Something broke."));
+
+        }
+
     }
 }
