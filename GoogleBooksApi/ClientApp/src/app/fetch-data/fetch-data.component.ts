@@ -7,19 +7,27 @@ import { HttpClient } from '@angular/common/http';
 })
 export class FetchDataComponent {
   public books: IBook[];
+  public errorMsg: string;
+  public showLoadingGif: boolean;
   private http: HttpClient;
   private readonly baseUrl: string;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.http = http;
+    this.showLoadingGif = false;
     this.baseUrl = baseUrl;
   }
 
   public search() {
     let querystring = encodeURIComponent((document.getElementById('search_field') as HTMLInputElement).value);
+    this.showLoadingGif = true;
     this.http.get<IBook[]>(this.baseUrl + 'api/Books/Search?query=' + querystring).subscribe(result => {
       this.books = result;
-    }, error => console.error(error));
+      this.showLoadingGif = false;
+    }, error => {
+      this.errorMsg = error;
+      console.error(error);
+    });
   }
 
   public eventHandler(keycode: number) {

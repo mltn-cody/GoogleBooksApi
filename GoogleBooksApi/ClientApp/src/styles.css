@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+.ellipsis {
+  position: relative;
+}
+
+.loading {
+  background-color: #ffffff;
+  background-image: url("http://loadinggif.com/images/image-selection/3.gif");
+  background-size: 25px 25px;
+  background-position: right center;
+  background-repeat: no-repeat;
+}

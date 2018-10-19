@@ -1,11 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
-using Google.Apis.Books.v1;
-using Google.Apis.Books.v1.Data;
-using Google.Apis.Requests;
-using Google.Apis.Services;
 using GoogleBooksApi.ClientApp.Models;
 using GoogleBooksApi.ClientApp.Services;
 using GoogleBooksApi.Controllers;

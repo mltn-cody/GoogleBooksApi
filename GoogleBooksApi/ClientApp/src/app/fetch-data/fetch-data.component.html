@@ -3,25 +3,35 @@
 <p>This component demonstrates fetching data from the google books api.</p>
 
 <div>
-  <input id="search_field" type="text" placeholder="Search for book title" (keypress)="eventHandler($event.charCode)"/>
+  <input id="search_field" [ngClass]="{'loading': showLoadingGif}" type="text" placeholder="Search for book title" (keypress)="eventHandler($event.charCode)"/>
   <button (click)="search()">search</button>
 </div>
 
-<table class='table' *ngIf="books">
-  <thead>
+<div *ngIf="error">
+  <p>Search Failed.</p>
+</div>
+
+  <table class='table' *ngIf="books;else noBooksTemplate">
+    <thead>
     <tr>
       <th>Title</th>
       <th>Author</th>
       <th>Publisher</th>
       <th>Image</th>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr *ngFor="let book of books">
       <td>{{ book.title }}</td>
       <td>{{ book.authors }}</td>
       <td>{{ book.publisher}}</td>
       <td><a href="{{ book.infoLink }}" target="_blank"><img src="{{ book.image ? book.image : './no-image.png'}}" /></a></td>
     </tr>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+  <ng-template #noBooksTemplate>
+    <div>
+      <h4>No books found in search.</h4>
+    </div>
+  </ng-template>
+

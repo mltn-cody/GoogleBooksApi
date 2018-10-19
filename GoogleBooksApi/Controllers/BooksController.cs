@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using GoogleBooksApi.ClientApp.Models;
@@ -22,7 +23,6 @@ namespace GoogleBooksApi.Controllers
             if (string.IsNullOrEmpty(query)) return null;
             var result = await _bookApi.Search(query);
             return result.Item2;
-
         }
     }
 }
