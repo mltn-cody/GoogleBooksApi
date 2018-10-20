@@ -1,4 +1,5 @@
 import { AppPage } from './app.po';
+import { browser, by, element } from 'protractor';
 
 describe('App', () => {
   let page: AppPage;
@@ -8,7 +9,13 @@ describe('App', () => {
   });
 
   it('should display welcome message', () => {
-    page.navigateTo();
+    page.navigateToHome();
     expect(page.getMainHeading()).toEqual('Hello, Rob!');
+  });
+
+  it('should display loading', () => {
+    page.navigateToSearch();
+    page.search();
+    expect(element(by.css('.loading')).isPresent()).toBe(true);
   });
 });

@@ -1,8 +1,20 @@
 import { browser, by, element } from 'protractor';
 
 export class AppPage {
-  navigateTo() {
+  navigateToHome() {
     return browser.get('/');
+  }
+
+  navigateToSearch() {
+    return browser.get('/fetch-data');
+  }
+
+  search() {
+    let searchField = element(by.id('search_field'));
+    searchField.clear();
+    searchField.sendKeys("C#");
+    element(by.buttonText('search')).click();
+
   }
 
   getMainHeading() {
