@@ -23,10 +23,10 @@
     <tfoot>
     <tr>
       <td>
-        <button (click)="prev()">Prev</button>
+        <button (click)="prev()" [ngClass]="{'loading': showLoadingGif}" [disabled]="showLoadingGif">Prev</button>
       </td>
       <td colspan="3" align="right">
-        <button (click)="next()">Next</button>
+        <button (click)="next()" [ngClass]="{'loading': showLoadingGif}" [disabled]="showLoadingGif">Next</button>
       </td>
     </tr>
     </tfoot>
