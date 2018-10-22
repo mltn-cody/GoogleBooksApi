@@ -18,12 +18,12 @@ namespace GoogleBooksApi.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<IEnumerable<Book>> Search(string query)
+        public async Task<IEnumerable<Book>> Search(string query, int offset=0)
         {
             try
             {
                 if (string.IsNullOrEmpty(query)) return null;
-                var result = await _bookApi.Search(query);
+                var result = await _bookApi.Search(query,offset);
                 return result.Item2;
             }
             catch (Exception ex)

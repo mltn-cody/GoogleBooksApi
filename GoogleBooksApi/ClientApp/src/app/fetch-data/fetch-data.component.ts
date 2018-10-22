@@ -11,17 +11,20 @@ export class FetchDataComponent {
   public showLoadingGif: boolean;
   private http: HttpClient;
   private readonly baseUrl: string;
+  private currentPage: number;
+  private querystring: string;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.http = http;
     this.showLoadingGif = false;
     this.baseUrl = baseUrl;
+    this.currentPage = 0
   }
 
   public search() {
-    let querystring = encodeURIComponent((document.getElementById('search_field') as HTMLInputElement).value);
+    this.querystring = encodeURIComponent((document.getElementById('search_field') as HTMLInputElement).value);
     this.showLoadingGif = true;
-    this.http.get<IBook[]>(this.baseUrl + 'api/Books/Search?query=' + querystring).subscribe(result => {
+    this.http.get<IBook[]>(this.baseUrl + 'api/Books/Search?query=' + this.querystring).subscribe(result => {
       this.books = result;
       this.showLoadingGif = false;
     }, error => {
@@ -29,6 +32,34 @@ export class FetchDataComponent {
       console.error(error);
     });
   }
+
+  public next() {
+    let nextPage = (this.currentPage + 10);
+    this.showLoadingGif = true;
+    this.http.get<IBook[]>(this.baseUrl + 'api/Books/Search?query=' + this.querystring + '&offset=' + nextPage).subscribe(result => {
+      this.books = result;
+      this.showLoadingGif = false;
+      this.currentPage = nextPage;
+    }, error => {
+      this.errorMsg = error;
+      console.error(error);
+    });
+  }
+
+  public prev() {
+    let prevPage = (this.currentPage > 0 ? this.currentPage - 10 : 0);
+    if (prevPage === 0) return;
+    this.showLoadingGif = true;
+    this.http.get<IBook[]>(this.baseUrl + 'api/Books/Search?query=' + this.querystring + '&offset=' + prevPage).subscribe(result => {
+      this.books = result;
+      this.showLoadingGif = false;
+      this.currentPage = prevPage;
+    }, error => {
+      this.errorMsg = error;
+      console.error(error);
+    });
+  }
+
 
   public eventHandler(keycode: number) {
     if (keycode === 13)

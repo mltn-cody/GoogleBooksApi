@@ -1,3 +1,4 @@
+using System;
 using Google.Apis.Books.v1;
 using Google.Apis.Books.v1.Data;
 using Google.Apis.Services;
@@ -78,10 +79,13 @@ namespace GoogleBooksApi.ClientApp.Services
     public ListRequestStub(VolumesResource.ListRequest listRequest)
     {
       _listRequest = listRequest;
+
     }
 
     public Volumes Execute()
     {
+      _listRequest.MaxResults = MaxResults;
+      _listRequest.StartIndex = StartIndex;
       return _listRequest.Execute();
     }
   }

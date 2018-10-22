@@ -4,7 +4,7 @@
 
 <div>
   <input id="search_field" [ngClass]="{'loading': showLoadingGif}" type="text" placeholder="Search for book title" (keypress)="eventHandler($event.charCode)"/>
-  <button (click)="search()">search</button>
+  <button (click)="search()">Search</button>
 </div>
 
 <div *ngIf="errorMsg">
@@ -20,6 +20,16 @@
       <th>Image</th>
     </tr>
     </thead>
+    <tfoot>
+    <tr>
+      <td>
+        <button (click)="prev()">Prev</button>
+      </td>
+      <td>
+        <button (click)="next()">Next</button>
+      </td>
+    </tr>
+    </tfoot>
     <tbody>
     <tr *ngFor="let book of books">
       <td>{{ book.title }}</td>
