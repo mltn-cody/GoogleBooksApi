@@ -15,17 +15,17 @@ namespace GoogleBooksApi.ClientApp.Services
 
         public BookApi(IBookService bookClientService)
         {
-            _booksService = bookClientService;
+          _booksService = bookClientService;
         }
 
-        /// <summary>
-        /// Search Google Books API
-        /// </summary>
-        /// <param name="query">Query string</param>
-        /// <param name="offset">Todo: Use for pagnation </param>
-        /// <param name="count">the number of records to return</param>
-        /// <returns></returns>
-        public async Task<Tuple<int?, List<Book>>> Search(string query, int offset, int count)
+    /// <summary>
+    /// Search Google Books API
+    /// </summary>
+    /// <param name="query">Query string</param>
+    /// <param name="offset"> </param>
+    /// <param name="count">the number of records to return</param>
+    /// <returns></returns>
+    public async Task<Tuple<int?, List<Book>>> Search(string query, int offset, int count)
         {
             return await Task.Run(() =>
             {
@@ -35,6 +35,7 @@ namespace GoogleBooksApi.ClientApp.Services
                     listquery.MaxResults = count;
                     listquery.StartIndex = offset;
                     var res = listquery.Execute();
+                     
                     var books = res.Items?.Select(b => new Book
                     {
                         Id = b.Id,

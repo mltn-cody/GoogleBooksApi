@@ -28,7 +28,7 @@ namespace GoogleBooksApi.Controllers
             }
             catch (Exception ex)
             {
-                // do some stuff to track the message in ELK or some other logging system..
+                // Todo: do some stuff to track the message in ELK or some other logging system..
                 throw new FriendlyUiException("Search Failed!");
             }
         }
