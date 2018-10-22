@@ -2,7 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Google.Apis.Books.v1;
+using Google.Apis.Services;
 using GoogleBooksApi.ClientApp.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace GoogleBooksApi.ClientApp.Services
 {
@@ -11,18 +14,22 @@ namespace GoogleBooksApi.ClientApp.Services
     /// </summary>
     public class BookApi : IBookApi
     {
-        private readonly IBookService _booksService;
+        private readonly BooksService _booksService;
 
-        public BookApi(IBookService bookClientService)
+        public BookApi(IBookService bookClientService, IConfiguration configuration)
         {
-            _booksService = bookClientService;
+            _booksService = new BooksService(new BaseClientService.Initializer()
+          {
+            ApiKey = configuration["ApiKey"],
+            ApplicationName = this.GetType().ToString()
+          }); 
         }
 
         /// <summary>
         /// Search Google Books API
         /// </summary>
         /// <param name="query">Query string</param>
-        /// <param name="offset">Todo: Use for pagnation </param>
+        /// <param name="offset"> </param>
         /// <param name="count">the number of records to return</param>
         /// <returns></returns>
         public async Task<Tuple<int?, List<Book>>> Search(string query, int offset, int count)
@@ -33,8 +40,9 @@ namespace GoogleBooksApi.ClientApp.Services
                 {
                     var listquery = _booksService.Volumes.List(query);
                     listquery.MaxResults = count;
-                    listquery.StartIndex = offset;
+                    listquery.StartIndex = 20;
                     var res = listquery.Execute();
+                     
                     var books = res.Items?.Select(b => new Book
                     {
                         Id = b.Id,

@@ -37,7 +37,7 @@ export class FetchDataComponent {
   }
 }
 
-interface IBook {
+export interface IBook {
   id: string,
   title: string,
   authors: string[],
