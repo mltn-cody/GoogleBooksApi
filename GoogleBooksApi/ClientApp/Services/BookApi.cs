@@ -46,7 +46,7 @@ namespace GoogleBooksApi.ClientApp.Services
                         Subtitle = b.VolumeInfo.Subtitle,
                         Description = b.VolumeInfo.Description,
                         PageCount = b.VolumeInfo.PageCount,
-                        Image = b.VolumeInfo.ImageLinks?.Thumbnail
+                        Image = b.VolumeInfo.ImageLinks?.Thumbnail.Replace("http://", "https://")
 
                     }).ToList();
                     return new Tuple<int?, List<Book>>(res.TotalItems, books);
