@@ -48,7 +48,7 @@ export class FetchDataComponent {
 
   public prev() {
     let prevPage = (this.currentPage > 0 ? this.currentPage - 10 : 0);
-    if (prevPage === 0) return;
+    if (this.currentPage === 0) return;
     this.showLoadingGif = true;
     this.http.get<IBook[]>(this.baseUrl + 'api/Books/Search?query=' + this.querystring + '&offset=' + prevPage).subscribe(result => {
       this.books = result;
